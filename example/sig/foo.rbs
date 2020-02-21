@@ -1,0 +1,5 @@
+class Foo
+  @name: String
+  def initialize: (String name) -> untyped
+  def hi: () -> String
+end
