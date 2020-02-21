@@ -55,7 +55,7 @@
 
 (lsp-register-client
   (make-lsp-client
-    :new-connection (lsp-stdio-connection (lsp-steep-command))
+    :new-connection (lsp-stdio-connection #'lsp-steep-command)
     :major-modes '(ruby-mode enh-ruby-mode)
     :priority -1
     :multi-root t
