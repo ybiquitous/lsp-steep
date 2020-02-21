@@ -26,11 +26,38 @@
 
 (require 'lsp-mode)
 
+(defgroup lsp-steep nil
+  "LSP support for Ruby, using Steep."
+  :group 'lsp-mode
+  :link '(url-link "https://github.com/soutaro/steep"))
+
+(defcustom lsp-steep-use-bundler nil
+  "Run Steep under Bunder."
+  :type 'boolean
+  :group 'lsp-steep)
+
+(defcustom lsp-steep-log-level "warn"
+  "Log level of Steep."
+  :type '(choice
+           (const "fatal")
+           (const "error")
+           (const "warn")
+           (const "info")
+           (const "debug"))
+  :group 'lsp-steep)
+
+(defun lsp-steep-command ()
+  "Steep command."
+  (append
+    (if lsp-steep-use-bundler (list "bundle" "exec"))
+    (list "steep" "langserver")
+    (list (concat "--log-level=" lsp-steep-log-level))))
+
 (lsp-register-client
   (make-lsp-client
-    :new-connection (lsp-stdio-connection '("steep" "langserver" "--log-level=info"))
+    :new-connection (lsp-stdio-connection (lsp-steep-command))
     :major-modes '(ruby-mode enh-ruby-mode)
-    :priority -2
+    :priority -1
     :multi-root t
     :server-id 'ruby-steep))
 
