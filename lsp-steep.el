@@ -46,20 +46,25 @@
            (const "debug"))
   :group 'lsp-steep)
 
-(defun lsp-steep-command ()
-  "Steep command."
+(defun lsp-steep--command ()
   (append
-    (if lsp-steep-use-bundler (list "bundle" "exec"))
-    (list "steep" "langserver")
+    (if lsp-steep-use-bundler '("bundle" "exec"))
+    '("steep" "langserver")
     (list (concat "--log-level=" lsp-steep-log-level))))
+
+(defun lsp-steep--initialize (workspace)
+  (with-lsp-workspace workspace
+    (lsp--set-configuration
+      (lsp-configuration-section "steep"))))
 
 (lsp-register-client
   (make-lsp-client
-    :new-connection (lsp-stdio-connection #'lsp-steep-command)
+    :new-connection (lsp-stdio-connection #'lsp-steep--command)
     :major-modes '(ruby-mode enh-ruby-mode)
     :priority -1
     :multi-root t
-    :server-id 'ruby-steep))
+    :server-id 'ruby-steep
+    :initialized-fn #'lsp-steep--initialize))
 
 (provide 'lsp-steep)
 ;;; lsp-steep.el ends here
