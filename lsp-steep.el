@@ -1,9 +1,12 @@
-;;; lsp-steep.el --- Steep configuration for lsp-mode  -*- lexical-binding: t; -*-
+;;; lsp-steep.el --- Steep support for lsp-mode  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2020  Masafumi Koba
 
-;; Author: Masafumi Koba <ybiquitous@gmail.com>
-;; Keywords:
+;; Version: 0.1.0
+;; Package-Requires: ((emacs "26.1") (lsp-mode "7.0"))
+;; Author: Masafumi Koba
+;; Keywords: languages, tools
+;; URL: https://github.com/ybiquitous/lsp-steep
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -20,14 +23,13 @@
 
 ;;; Commentary:
 
-;;
+;; Steep (a static type checker for the Ruby language) support for lsp-mode.
 
 ;;; Code:
-
 (require 'lsp-mode)
 
 (defgroup lsp-steep nil
-  "LSP support for Ruby, using Steep."
+  "LSP support for Steep, a static type checker for Ruby."
   :group 'lsp-mode
   :link '(url-link "https://github.com/soutaro/steep"))
 
