@@ -49,12 +49,14 @@
   :group 'lsp-steep)
 
 (defun lsp-steep--command ()
+  "Return the Steep command."
   (append
     (if lsp-steep-use-bundler '("bundle" "exec"))
     '("steep" "langserver")
     (list (concat "--log-level=" lsp-steep-log-level))))
 
 (defun lsp-steep--initialize (workspace)
+  "Initialize `lsp-steep' with WORKSPACE."
   (with-lsp-workspace workspace
     (lsp--set-configuration
       (lsp-configuration-section "steep"))))
